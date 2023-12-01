@@ -1,0 +1,17 @@
+extend: {
+    colors: {
+      brightColor: "grey",
+      backgroundColor: "red",
+      lightText: "#959595",
+    },
+  },
+
+
+  Enjoy Your Inner kFC with Every Bite.
+
+  Indulge in a symphony of flavors, where each plate is a canvas for
+  culinary excellence.
+
+  patranaturinda@email.com
+   0775829983
+  Social media
