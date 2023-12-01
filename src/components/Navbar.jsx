@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-scroll";
 import { BiRestaurant } from "react-icons/bi";
-import Button from "../layouts/Button";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { BiChevronDown } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
+  const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
+
   const [menu, setMenu] = useState(false);
 
   const handleChange = () => {
@@ -25,11 +27,12 @@ const Navbar = () => {
             <span>
               <BiRestaurant size={32} />
             </span>
-            <h1 className=" text-xl font-semibold" style={{color: 'red'}}>KFC</h1>
+            <h1 className=" text-xl font-semibold" style={{ color: "red" }}>
+              KFC
+            </h1>
           </div>
 
           <nav className="hidden md:flex flex-row items-center text-lg font-medium gap-8">
-          
             <Link
               to="home"
               spy={true}
@@ -55,10 +58,7 @@ const Navbar = () => {
                 <BiChevronDown className="cursor-pointer" size={25} />
               </div>
 
-              <ul className="absolute hidden space-y-2 group-hover:block bg-white border border-gray-300 rounded-lg p-5">
-                
-                
-              </ul>
+              <ul className="absolute hidden space-y-2 group-hover:block bg-white border border-gray-300 rounded-lg p-5"></ul>
             </div>
 
             <Link
@@ -90,17 +90,35 @@ const Navbar = () => {
             >
               Cart
             </Link>
-            <Link
-              to="review"
+            
+             
+              <Link
               spy={true}
               smooth={true}
               duration={500}
               className="hover:text-brightColor transition-all cursor-pointer"
+              onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
             >
-              Reviews
+              Logout
             </Link>
+            
+            
+            
 
-            <Button title="Login" />
+            {isAuthenticated ? (
+              <button
+                title="Logout"
+                onClick={() =>
+                  logout({ logoutParams: { returnTo: window.location.origin } })
+                }
+              >
+                Logout
+              </button>
+            ) : (
+              <button title="Login" onClick={() => loginWithRedirect()}>
+                Login
+              </button>
+            )}
           </nav>
 
           <div className="md:hidden flex items-center">
@@ -167,7 +185,21 @@ const Navbar = () => {
             Reviews
           </Link>
 
-          <Button title="login" />
+          {isAuthenticated ? (
+            <button
+              title="Logout"
+              onClick={() =>
+                logout({ logoutParams: { returnTo: window.location.origin } })
+              }
+            >
+              Logout
+            </button>
+          ) : (
+            <button title="Login" onClick={() => loginWithRedirect()}>
+              Login
+            </button>
+          )}
+          
         </div>
       </div>
     </div>
